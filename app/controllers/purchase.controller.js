@@ -1,60 +1,60 @@
 const db = require("../models");
-const Subscription = db.subscription;
+const Purchase = db.purchase;
 
-// Create and Save a new Subscription
+// Create and Save a new Purchase
 exports.create = (req, res) => {
-    const subscription = new Subscription(req.body);
+    const purchase = new Purchase(req.body);
 
-    // Save Subscription in the database
-    subscription
-        .save(subscription)
+    // Save Purchase in the database
+    purchase
+        .save(purchase)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Subscription."
+                    err.message || "Some error occurred while creating the Purchase."
             });
         });
 };
 
-// Retrieve all Subscriptions from the database.
+// Retrieve all Purchases from the database.
 exports.findAll = (req, res) => {
     // const title = req.query.title;
     // var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
 
-    // Subscription.find(condition)
-    Subscription.find()
+    // Purchase.find(condition)
+    Purchase.find()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving subscriptions."
+                    err.message || "Some error occurred while retrieving purchases."
             });
         });
 };
 
-// Find a single Subscription with an id
+// Find a single Purchase with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Subscription.findById(id)
+    Purchase.findById(id)
         .then(data => {
             if (!data)
-                res.status(404).send({ message: "Not found Subscription with id " + id });
+                res.status(404).send({ message: "Not found Purchase with id " + id });
             else res.send(data);
         })
         .catch(err => {
             res
                 .status(500)
-                .send({ message: "Error retrieving Subscription with id=" + id });
+                .send({ message: "Error retrieving Purchase with id=" + id });
         });
 };
 
-// Update a Subscription by the id in the request
+// Update a Purchase by the id in the request
 exports.update = (req, res) => {
     if (!req.body) {
         return res.status(400).send({
@@ -64,56 +64,56 @@ exports.update = (req, res) => {
 
     const id = req.params.id;
 
-    Subscription.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    Purchase.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot update Subscription with id=${id}. Maybe Subscription was not found!`
+                    message: `Cannot update Purchase with id=${id}. Maybe Purchase was not found!`
                 });
-            } else res.send({ message: "Subscription was updated successfully." });
+            } else res.send({ message: "Purchase was updated successfully." });
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Subscription with id=" + id
+                message: "Error updating Purchase with id=" + id
             });
         });
 };
 
-// Delete a Subscription with the specified id in the request
+// Delete a Purchase with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Subscription.findByIdAndRemove(id)
+    Purchase.findByIdAndRemove(id)
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot delete Subscription with id=${id}. Maybe Subscription was not found!`
+                    message: `Cannot delete Purchase with id=${id}. Maybe Purchase was not found!`
                 });
             } else {
                 res.send({
-                    message: "Subscription was deleted successfully!"
+                    message: "Purchase was deleted successfully!"
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Subscription with id=" + id
+                message: "Could not delete Purchase with id=" + id
             });
         });
 };
 
-// Delete all Subscriptions from the database.
+// Delete all Purchases from the database.
 exports.deleteAll = (req, res) => {
-    Subscription.deleteMany({})
+    Purchase.deleteMany({})
         .then(data => {
             res.send({
-                message: `${data.deletedCount} Subscriptions were deleted successfully!`
+                message: `${data.deletedCount} Purchases were deleted successfully!`
             });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all subscriptions."
+                    err.message || "Some error occurred while removing all purchases."
             });
         });
 };

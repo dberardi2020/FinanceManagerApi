@@ -36,6 +36,8 @@ app.get("/", (req, res) => {
 require("dotenv").config();
 
 require("./app/routes/subscription.routes")(app);
+require("./app/routes/purchase.routes")(app);
+
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;
